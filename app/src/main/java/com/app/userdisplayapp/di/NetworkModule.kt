@@ -16,16 +16,10 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    fun providesRetrofit(): Retrofit{
-        return Retrofit.Builder()
+    fun providesRetrofitInstance(): ApiService =
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-
-    @Singleton
-    @Provides
-    fun provideApiService(retrofit: Retrofit) : ApiService{
-        return retrofit.create(ApiService::class.java)
-    }
+            .create(ApiService::class.java)
 }
